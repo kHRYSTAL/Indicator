@@ -14,10 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import me.khrystal.widget.IndicatorView;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class MainActivity extends AppCompatActivity {
+
+    private IndicatorView indicatorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ViewPager pager = findViewById(R.id.viewPager);
+        indicatorView = findViewById(R.id.indicatorView);
+        indicatorView.initIndicatorCount(3, 0);
         pager.setAdapter(vpa);
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                indicatorView.onPagerScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                indicatorView.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                indicatorView.onPageScrollStateChanged(state);
+            }
+        });
     }
 
     class SamplePagerAdapter extends PagerAdapter {
