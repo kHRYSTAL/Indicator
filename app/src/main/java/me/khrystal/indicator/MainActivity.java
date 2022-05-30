@@ -20,7 +20,6 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class MainActivity extends AppCompatActivity {
 
-    private IndicatorView indicatorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +32,54 @@ public class MainActivity extends AppCompatActivity {
                 this.add(Color.BLUE);
             }
         });
+
+        IndicatorView indicatorView1 = findViewById(R.id.indicatorView1);
+        IndicatorView indicatorView2 = findViewById(R.id.indicatorView2);
+        IndicatorView indicatorView3 = findViewById(R.id.indicatorView3);
+        IndicatorView indicatorView4 = findViewById(R.id.indicatorView4);
+        IndicatorView indicatorView5 = findViewById(R.id.indicatorView5);
+        indicatorView1.setIndicatorStyle(IndicatorView.IndicatorStyle.INDICATOR_CIRCLE);
+        indicatorView2.setIndicatorStyle(IndicatorView.IndicatorStyle.INDICATOR_CIRCLE_RECT);
+        indicatorView3.setIndicatorStyle(IndicatorView.IndicatorStyle.INDICATOR_BEZIER);
+        indicatorView4.setIndicatorStyle(IndicatorView.IndicatorStyle.INDICATOR_DASH);
+        indicatorView5.setIndicatorStyle(IndicatorView.IndicatorStyle.INDICATOR_BIG_CIRCLE);
+        indicatorView1.setIndicatorSelectedRatio(3f);
+
+        indicatorView1.initIndicatorCount(3, 0);
+        indicatorView2.initIndicatorCount(3, 0);
+        indicatorView3.initIndicatorCount(3, 0);
+        indicatorView4.initIndicatorCount(3, 0);
+        indicatorView5.initIndicatorCount(3, 0);
+
+
         ViewPager pager = findViewById(R.id.viewPager);
-        indicatorView = findViewById(R.id.indicatorView);
-        indicatorView.initIndicatorCount(3, 0);
         pager.setAdapter(vpa);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                indicatorView.onPagerScrolled(position, positionOffset, positionOffsetPixels);
+                indicatorView1.onPagerScrolled(position, positionOffset, positionOffsetPixels);
+                indicatorView2.onPagerScrolled(position, positionOffset, positionOffsetPixels);
+                indicatorView3.onPagerScrolled(position, positionOffset, positionOffsetPixels);
+                indicatorView4.onPagerScrolled(position, positionOffset, positionOffsetPixels);
+                indicatorView5.onPagerScrolled(position, positionOffset, positionOffsetPixels);
             }
 
             @Override
             public void onPageSelected(int position) {
-                indicatorView.onPageSelected(position);
+                indicatorView1.onPageSelected(position);
+                indicatorView2.onPageSelected(position);
+                indicatorView3.onPageSelected(position);
+                indicatorView4.onPageSelected(position);
+                indicatorView5.onPageSelected(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                indicatorView.onPageScrollStateChanged(state);
+                indicatorView1.onPageScrollStateChanged(state);
+                indicatorView2.onPageScrollStateChanged(state);
+                indicatorView3.onPageScrollStateChanged(state);
+                indicatorView4.onPageScrollStateChanged(state);
+                indicatorView5.onPageScrollStateChanged(state);
             }
         });
     }

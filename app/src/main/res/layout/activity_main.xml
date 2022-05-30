@@ -13,12 +13,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <me.khrystal.widget.IndicatorView
-            android:id="@+id/indicatorView"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginBottom="200dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="200dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <me.khrystal.widget.IndicatorView
+                android:id="@+id/indicatorView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.khrystal.widget.IndicatorView
+                android:id="@+id/indicatorView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.khrystal.widget.IndicatorView
+                android:id="@+id/indicatorView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.khrystal.widget.IndicatorView
+                android:id="@+id/indicatorView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.khrystal.widget.IndicatorView
+                android:id="@+id/indicatorView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
