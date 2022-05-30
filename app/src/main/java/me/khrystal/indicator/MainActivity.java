@@ -1,17 +1,21 @@
 package me.khrystal.indicator;
 
+import android.graphics.Color;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,38 +23,58 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        SamplePagerAdapter vpa = new SamplePagerAdapter(new ArrayList<Integer>() {
+            {
+                this.add(Color.RED);
+                this.add(Color.GREEN);
+                this.add(Color.BLUE);
             }
         });
+        ViewPager pager = findViewById(R.id.viewPager);
+        pager.setAdapter(vpa);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    class SamplePagerAdapter extends PagerAdapter {
+        private List<Integer> colors;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        public SamplePagerAdapter(List<Integer> colors) {
+            this.colors = colors;
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        public int getCount() {
+            return colors.size();
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            View view = (View) object;
+            return (int) view.getTag();
+        }
+
+        @Override
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
+            return view == o;
+        }
+
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            TextView textView = new TextView(MainActivity.this);
+            textView.setLayoutParams(new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
+            textView.setText(String.valueOf(position));
+            textView.setGravity(Gravity.CENTER);
+            textView.setTextSize(22);
+            textView.setTextColor(Color.parseColor("#ffffff"));
+            textView.setBackgroundColor(colors.get(position));
+            textView.setTag(position);
+            container.addView(textView);
+            return textView;
+        }
+
+        @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            container.removeView((View) object);
+        }
     }
+
 }
